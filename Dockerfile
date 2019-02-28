@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY gottado /gottado
+COPY bin/gottado /gottado
 
 ENTRYPOINT ["/gottado"]
