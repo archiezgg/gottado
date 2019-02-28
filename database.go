@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -26,14 +27,20 @@ func initDB() {
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 
 	db, err = sql.Open("postgres", dbInfo)
-	for i := 0; i <= 1000 && err != nil; i++ {
-		if i == 0 {
-			log.Println("Trying to connect to the database...")
-		}
+	for err != nil {
+		panic(err)
 	}
 
 	if err = db.Ping(); err != nil {
-		panic(err)
+		try := 1
+		for ; try < 5 && err != nil; try++ {
+			log.Printf("Establishing connection to the database... %d", try)
+			time.Sleep(10 * time.Second)
+			db, _ = sql.Open("postgres", dbInfo)
+		}
+		if try == 5 {
+			panic(err)
+		}
 	}
 	log.Println("Successfully connected to the database.")
 
