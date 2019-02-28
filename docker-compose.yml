@@ -1,10 +1,5 @@
 version: '3'
 services:
-  app:
-    image: "archiezgg/gottado"
-    ports: 
-      - "3000:3000"
-    restart: always
   database:
     image: "postgres:alpine"
     ports: 
@@ -12,3 +7,12 @@ services:
     environment:
       POSTGRES_PASSWORD: "root"
       POSTGRES_DB: "gottado"
+  app:
+    image: "archiezgg/gottado"
+    ports: 
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - database
+    links:
+      - database
