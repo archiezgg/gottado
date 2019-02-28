@@ -36,7 +36,7 @@ func initDB() {
 		for ; try < 5 && err != nil; try++ {
 			log.Printf("Establishing connection to the database... %d", try)
 			time.Sleep(10 * time.Second)
-			db, _ = sql.Open("postgres", dbInfo)
+			err = db.Ping()
 		}
 		if try == 5 {
 			panic(err)
