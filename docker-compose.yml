@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: "archiezgg/gottado"
+    ports: "3000:3000"
+  database:
+      image: "postgres:alpine"
+      ports: "5432:5432"
