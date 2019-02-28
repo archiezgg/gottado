@@ -1,0 +1,26 @@
+{{ define "body" }}
+<body class="container">
+    <h1>Welcome to editting your #TSK-{{.ID}} task!</h1>
+    <form action="/editTask" method="POST" id="editform">
+        <label for="title">Title: </label>
+        <input id="title" name="title" type="text" value="{{.Title}}" required><br>
+        <label for="content">Task: </label>
+        <textarea name="content" id="content" cols="20" rows="3" required>{{.Content}}</textarea><br>
+        <input type="hidden" name="id" value="{{.ID}}">
+        <label for="urgent">Is it urgent? </label>
+        <select name="urgent" id="urgent">
+            {{ if .IsUrgent }}
+            <option selected value=true>Yes</option>
+            <option value=false>No</option>
+            {{ else }}
+            <option value=true>Yes</option>
+            <option selected value=false>No</option>
+            {{ end }}
+        </select><br>
+        <button class="btn btn-success">Submit changes</button>
+    </form>
+    <p><a href="/">Back to main page</a></p>
+</body>
+{{ end }}
+
+{{ template "layout" . }}

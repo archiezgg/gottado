@@ -1,0 +1,64 @@
+{{ define "body" }}
+<body class="container">
+    <h1>Welcome to Gotta-Do! <small>- a pretty todo application written in Golang</small></h1>
+</body>
+{{ if not . }}
+<div>
+    <p>Fortunately, you don't have any tasks. Go rest some!</p>
+    <p>If you are eager to do something, click <a href="/create">here</a> to create a task!</p>
+</div>
+{{ else }}
+<div>
+    <table class="table table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Urgent?</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </thead>
+        {{ range $v := . }}
+        <tbody>
+            <tr>
+                <td>TSK-{{ $v.ID }}</td>
+                <td>{{ $v.Title }}</td>
+                <td>{{ $v.Content }}</td>
+                <td>
+                    {{ if $v.IsUrgent }} 
+                        <span class="glyphicon glyphicon-ok"></span>
+                    {{ else }} 
+                        <span class="glyphicon glyphicon-minus"></span>
+                    {{ end }}
+                </td>
+                <td>
+                    <form action="/deleteTask" method="POST">
+                        <button class="btn btn-danger" name="id" value="{{ $v.ID }}">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/task" method="GET">
+                        <button class="btn btn-warning" name="id" value="{{ $v.ID }}">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+        {{end}}
+    </table>
+</div>
+<div>
+    <form action="/create">
+        <button class="btn btn-primary">Create a task</button>
+    </form>
+</div>
+<div>
+    <p>@ This application was created by <a href="https://github.com/IstvanN/">Istvan "archiez" Nemeth</a> @</p>
+</div>
+{{ end }}
+{{ end }}
+
+{{ template "layout" . }}

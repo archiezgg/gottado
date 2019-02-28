@@ -1,0 +1,24 @@
+{{ define "body" }}
+<body class="container">
+    <h1>Welcome to Task-Kreat0r!</h1>
+    <div>
+        <form action="/submitTask" method="POST">
+            <label for="title">Title: </label>
+            <input id="title" name="title" type="text" placeholder="title of the task" required><br>
+            <label for="content">Task: </label>
+            <textarea name="content" id="content" cols="20" rows="3" placeholder="the task itself" required></textarea><br>
+            <label for="urgent">Is it urgent? </label>
+             <select name="urgent" id="urgent">
+                 <option value="true">Yes</option>
+                 <option value="false" selected>No</option>
+             </select><br>
+            <button class="btn btn-success">SUBMIT</button>
+        </form>
+    </div>
+    <div>
+        <p><a href="/">Go back</a></p>
+    </div>
+</body>
+{{ end }}
+
+{{ template "layout" . }}
