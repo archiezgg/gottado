@@ -33,13 +33,14 @@ func initDB() {
 
 	if err = db.Ping(); err != nil {
 		try := 1
-		for ; try < 5 && err != nil; try++ {
-			log.Printf("Establishing connection to the database... %d", try)
+		for try <= 6 && err != nil {
+			log.Printf("Establishing connection to the database... %d\nExiting after 5 tries.", try)
 			time.Sleep(10 * time.Second)
 			err = db.Ping()
-		}
-		if try == 5 {
-			panic(err)
+			try++
+			if try == 6 {
+				panic(err)
+			}
 		}
 	}
 	log.Println("Successfully connected to the database.")
