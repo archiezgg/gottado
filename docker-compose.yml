@@ -8,9 +8,9 @@ services:
     depends_on:
       - "database"
   database:
-      image: postgres:alpine
-      ports: 
+    image: postgres:alpine
+    ports: 
         - 5432:5432
-  environment:
-    POSTGRES_PASSWORD: "root"
-    POSTGRES_DB: "gottado"
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: "gottado"

@@ -26,8 +26,10 @@ func initDB() {
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 
 	db, err = sql.Open("postgres", dbInfo)
-	if err != nil {
-		panic(err)
+	for i := 0; i <= 1000 && err != nil; i++ {
+		if i == 0 {
+			log.Println("Trying to connect to the database...")
+		}
 	}
 
 	if err = db.Ping(); err != nil {
