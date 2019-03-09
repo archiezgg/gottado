@@ -51,12 +51,19 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		tasks = append(tasks, t)
 	}
 
-	baseHTML = "templates/index.html"
-	tmpl, err := template.ParseFiles(baseHTML, layout)
-	if err != nil {
-		log.Fatalf("Template parsing failed: %v", err)
+	fm := template.FuncMap{
+		"po": func(i int) int {
+			return i + 1
+		},
 	}
-	tmpl.Execute(w, tasks)
+
+	baseHTML = "templates/index.html"
+	tmpl := template.Must(template.New("layout").Funcs(fm).ParseFiles(layout, baseHTML))
+
+	err = tmpl.ExecuteTemplate(w, "layout", tasks)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func createHandler(w http.ResponseWriter, r *http.Request) {

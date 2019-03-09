@@ -11,17 +11,17 @@
 <div>
     <table class="table table-hover">
         <thead>
-            <th>ID</th>
+            <th>#</th>
             <th>Title</th>
             <th>Content</th>
             <th>Urgent?</th>
             <th>Delete</th>
             <th>Edit</th>
         </thead>
-        {{ range $v := . }}
+        {{ range $k, $v := . }}
         <tbody>
             <tr>
-                <td>TSK-{{ $v.ID }}</td>
+                <td>{{ po $k }}</td>
                 <td>{{ $v.Title }}</td>
                 <td>{{ $v.Content }}</td>
                 <td>
@@ -61,4 +61,4 @@
 {{ end }}
 {{ end }}
 
-{{ template "layout" . }}
+{{ template "layout"}}
