@@ -4,11 +4,10 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 )
 
-const (
-	serverPort = ":3000"
-)
+var serverPort = ":" + os.Getenv("PORT")
 
 var tmpl *template.Template
 
@@ -23,7 +22,6 @@ func init() {
 }
 
 func main() {
-	initDB()
 	defer db.Close()
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/create", createHandler)

@@ -20,7 +20,7 @@ var (
 
 var db *sql.DB
 
-func initDB() {
+func init() {
 	var err error
 
 	dbInfo := fmt.Sprintf("host=%v port=%v user=%v "+
