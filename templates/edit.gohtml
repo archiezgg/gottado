@@ -1,6 +1,5 @@
-{{ define "body" }}
-<body class="container">
-    <h1>Welcome to editting your #TSK-{{.ID}} task!</h1>
+{{template "header"}}
+    <h1>Welcome to editting your task!</h1>
     <form action="/editTask" method="POST" id="editform">
         <label for="title">Title: </label>
         <input id="title" name="title" type="text" value="{{.Title}}" required><br>
@@ -20,7 +19,4 @@
         <button class="btn btn-success">Submit changes</button>
     </form>
     <p><a href="/">Back to main page</a></p>
-</body>
-{{ end }}
-
-{{ template "layout" . }}
+{{template "footer"}}

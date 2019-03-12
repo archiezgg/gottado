@@ -8,10 +8,13 @@ import (
 
 const (
 	serverPort = ":3000"
-	layout     = "templates/layouts/layout.html"
 )
 
-var baseHTML string
+var tmpl *template.Template
+
+func init() {
+	tmpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+}
 
 func main() {
 	initDB()
@@ -51,18 +54,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		tasks = append(tasks, t)
 	}
 
-	fm := template.FuncMap{
-		"po": func(i int) int {
-			return i + 1
-		},
-	}
+	// fm := template.FuncMap{
+	// 	"po": func(i int) int {
+	// 		return i + 1
+	// 	},
+	// }
 
-	baseHTML = "templates/index.html"
-	tmpl := template.Must(template.New("layout").Funcs(fm).ParseFiles(layout, baseHTML))
-
-	err = tmpl.ExecuteTemplate(w, "layout", tasks)
-	if err != nil {
-		log.Println(err)
+	if err := tmpl.ExecuteTemplate(w, "index.gohtml", tasks); err != nil {
+		log.Fatal(err)
 	}
 }
 
@@ -72,12 +71,9 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	baseHTML = "templates/create.html"
-	tmpl, err := template.ParseFiles(baseHTML, layout)
-	if err != nil {
-		log.Fatalf("Template parsing failed: %v", err)
+	if err := tmpl.ExecuteTemplate(w, "create.gohtml", nil); err != nil {
+		log.Fatal(err)
 	}
-	tmpl.Execute(w, nil)
 }
 
 func submitTaskHandler(w http.ResponseWriter, r *http.Request) {
@@ -151,12 +147,9 @@ func singleTaskHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	baseHTML = "templates/edit.html"
-	tmpl, err := template.ParseFiles(baseHTML, layout)
-	if err != nil {
-		log.Fatalf("Template parsing failed: %v", err)
+	if err := tmpl.ExecuteTemplate(w, "edit.gohtml", nil); err != nil {
+		log.Fatal(err)
 	}
-	tmpl.Execute(w, t)
 }
 
 func editTaskHandler(w http.ResponseWriter, r *http.Request) {

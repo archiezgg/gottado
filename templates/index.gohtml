@@ -1,7 +1,5 @@
-{{ define "body" }}
-<body class="container">
+{{template "header"}}
     <h1>Welcome to Gotta-Do! <small>- a pretty todo application written in Golang</small></h1>
-</body>
 {{ if not . }}
 <div>
     <p>Fortunately, you don't have any tasks. Go rest some!</p>
@@ -21,7 +19,7 @@
         {{ range $k, $v := . }}
         <tbody>
             <tr>
-                <td>{{ po $k }}</td>
+                <td>{{ $k }}</td>
                 <td>{{ $v.Title }}</td>
                 <td>{{ $v.Content }}</td>
                 <td>
@@ -59,6 +57,4 @@
     <p>@ This application was created by <a href="https://github.com/IstvanN/">Istvan "archiez" Nemeth</a> @</p>
 </div>
 {{ end }}
-{{ end }}
-
-{{ template "layout"}}
+{{template "footer"}}

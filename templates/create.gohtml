@@ -1,5 +1,4 @@
-{{ define "body" }}
-<body class="container">
+{{template "header"}}
     <h1>Welcome to Task-Kreat0r!</h1>
     <div>
         <form action="/submitTask" method="POST">
@@ -18,7 +17,4 @@
     <div>
         <p><a href="/">Go back</a></p>
     </div>
-</body>
-{{ end }}
-
-{{ template "layout" . }}
+{{template "footer"}}
