@@ -13,7 +13,13 @@ const (
 var tmpl *template.Template
 
 func init() {
-	tmpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	fm := template.FuncMap{
+		"po": func(i int) int {
+			return i + 1
+		},
+	}
+
+	tmpl = template.Must(template.New("").Funcs(fm).ParseGlob("templates/*.gohtml"))
 }
 
 func main() {
@@ -53,12 +59,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		tasks = append(tasks, t)
 	}
-
-	// fm := template.FuncMap{
-	// 	"po": func(i int) int {
-	// 		return i + 1
-	// 	},
-	// }
 
 	if err := tmpl.ExecuteTemplate(w, "index.gohtml", tasks); err != nil {
 		log.Fatal(err)
