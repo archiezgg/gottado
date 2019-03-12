@@ -4,17 +4,18 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	_ "github.com/lib/pq"
 )
 
-const (
-	dbHost     = "localhost"
-	dbPort     = 5432
-	dbUser     = "postgres"
-	dbPassword = "root"
-	dbName     = "gottado"
+var (
+	dbHost     = os.Getenv("DB_HOST")
+	dbPort     = os.Getenv("DB_PORT")
+	dbUser     = os.Getenv("DB_USER")
+	dbPassword = os.Getenv("DB_PWD")
+	dbName     = os.Getenv("DB_NAME")
 )
 
 var db *sql.DB
