@@ -145,7 +145,7 @@ func singleTaskHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "edit.gohtml", nil); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "edit.gohtml", t); err != nil {
 		log.Fatal(err)
 	}
 }
